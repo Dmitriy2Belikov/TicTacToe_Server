@@ -11,7 +11,7 @@ using PagedList;
 namespace cross_zero_game.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class GameSessionController : ControllerBase
     {
         private readonly ILogger<GameSessionController> _logger;
