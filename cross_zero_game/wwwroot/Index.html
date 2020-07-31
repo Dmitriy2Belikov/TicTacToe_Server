@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>TicTacToe</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="/js/SessionWork.js"></script>
+</head>
+
+<body>
+    <div id="all">
+        <div id="mainPage" class="align-self-center text-center m-5">
+            <script>
+                $(document).ready(function () {
+                    getGameSessions();
+                });
+            </script>
+
+            <input class="btn btn-primary border-0 shadow" type="button" value="Создать сессию" onclick="createGameSession()" />
+
+            <h1 class="text-center m-2">Игровые сессии:</h1>
+            <table class="table w-50 ml-auto mr-auto" id="gameSessions">
+            </table>
+        </div>
+
+        <div id="createGameSession" class="ml-auto mr-auto w-25 col-6">
+            <script>$('#createGameSession').hide();</script>
+
+            <h1 class="text-center">Создание игровой сессии</h1>
+
+            <form>
+                <div class="form-group">
+                    <label for="name">Название</label>
+                    <input type="text" required class="form-control" id="name" />
+                </div>
+                <div class="form-group">
+                    <label for="players">Количество игроков</label>
+                    <input type="number" required class="form-control" id="players"/>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="sendForm()">Добавить</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

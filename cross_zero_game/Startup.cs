@@ -30,8 +30,6 @@ namespace cross_zero_game
 
             services.AddServices();
 
-            services.AddCors();
-
             services.AddControllers();
         }
 
@@ -52,18 +50,11 @@ namespace cross_zero_game
 
             app.UseRouting();
 
-            app.UseCors(c => c
-            .AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod());
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllers();
             });
         }
     }

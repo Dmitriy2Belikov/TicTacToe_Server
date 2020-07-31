@@ -9,14 +9,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace cross_zero_game.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("")]
     [ApiController]
     public class HomeController : ControllerBase
     {
-        private string _appDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "App");
+        private string _appDirectory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
         private string _contentType = "text/html";
 
-        [HttpGet("index")]
+        [HttpGet("/")]
         public IActionResult Index()
         {
             var path = Path.Combine(_appDirectory, "Index.html");

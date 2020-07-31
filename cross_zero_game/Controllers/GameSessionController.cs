@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using PagedList;
+using Newtonsoft.Json;
 
 namespace cross_zero_game.Controllers
 {
