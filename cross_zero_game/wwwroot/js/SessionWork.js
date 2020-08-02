@@ -23,15 +23,13 @@ function appendGameSession(gameSession) {
     let gameSessionRaw = constructGameSessionRaw(gameSession);
 
     $(GAME_SESSIONS_ID).append(gameSessionRaw);
-
-    setDeleteHandler(gameSession);
 }
 
 function constructGameSessionRaw(gameSession) {
     let name = '<td>' + gameSession.name + '</td>';
     let countOfPlayers = '<td>' + gameSession.countOfPlayers + '</td>';
 
-    let acceptButton = '<td><button>Войти</button></td>'
+    let acceptButton = '<td><input type="button" value="Присоединиться" /></td>'
     let deleteButton = '<td>' + constructDeleteButton(gameSession) + '</td>';
 
     let raw = '<tr id="' + gameSession.id + '">' + name + countOfPlayers + acceptButton + deleteButton + '</tr>';
@@ -40,10 +38,16 @@ function constructGameSessionRaw(gameSession) {
 }
 
 function constructDeleteButton(gameSession) {
-    let deleteButton = '<button id="' + gameSession.id + '">Удалить</button>';
+    let deleteButton = '<input type="button" value="Удалить" id="deleteButton" />';
 
     return deleteButton;
 }
+
+$(document).on('click', '#deleteButton', function () {
+    var gameSessionId = $(this).closest('tr').attr('id');
+
+    deleteGameSession(gameSessionId);
+});
 
 function deleteGameSession(gameSessionId) {
     $.ajax({
@@ -52,12 +56,6 @@ function deleteGameSession(gameSessionId) {
         success: function () {
             $('#' + gameSessionId).detach();
         }
-    });
-}
-
-function setDeleteHandler(gameSession) {
-    $(document).on('click', '#' + gameSession.id, function () {
-        deleteGameSession(gameSession.id);
     });
 }
 
