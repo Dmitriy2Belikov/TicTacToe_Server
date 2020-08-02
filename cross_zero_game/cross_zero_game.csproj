@@ -6,7 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\App\**" />
+    <Content Remove="wwwroot\App\**" />
+    <EmbeddedResource Remove="wwwroot\App\**" />
+    <None Remove="wwwroot\App\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Index.html" />
+    <None Include="wwwroot\js\SessionWork.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +25,7 @@
 
   <ItemGroup>
     <Folder Include="Pages\" />
-    <Folder Include="wwwroot\App\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

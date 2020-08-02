@@ -18,7 +18,7 @@ namespace cross_zero_game.Services
             _gameSessionRepository = gameSessionRepository;
         }
 
-        public void Add(string name, int countOfPlayers)
+        public GameSession Add(string name, int countOfPlayers)
         {
             var gameField = new GameField();
 
@@ -38,6 +38,8 @@ namespace cross_zero_game.Services
             };
 
             _gameSessionRepository.Add(gameSession);
+
+            return gameSession;
         }
 
         public GameSession Get(Guid id)

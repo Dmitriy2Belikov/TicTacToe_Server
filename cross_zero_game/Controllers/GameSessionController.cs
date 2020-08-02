@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using PagedList;
 using Newtonsoft.Json;
+using System.Net.Mime;
 
 namespace cross_zero_game.Controllers
 {
@@ -29,15 +30,16 @@ namespace cross_zero_game.Controllers
         {
             if (ModelState.IsValid)
             {
-                _gameSessionService.Add(gameSessionViewModel.Name, gameSessionViewModel.CountOfPlayers);
+                var gameSession = _gameSessionService.Add(gameSessionViewModel.Name, gameSessionViewModel.CountOfPlayers);
 
-                return Ok();
+                return Ok(gameSession);
             }
             else
             {
                 return BadRequest();
             }
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetSession(Guid id)

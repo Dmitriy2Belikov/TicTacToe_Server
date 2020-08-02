@@ -31,6 +31,8 @@ namespace cross_zero_game
             services.AddServices();
 
             services.AddControllers();
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +52,13 @@ namespace cross_zero_game
 
             app.UseRouting();
 
+            app.UseCors(b => b
+                    .AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {

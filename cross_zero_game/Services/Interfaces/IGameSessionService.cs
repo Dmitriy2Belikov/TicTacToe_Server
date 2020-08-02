@@ -9,7 +9,7 @@ namespace cross_zero_game.Services.Interfaces
 {
     public interface IGameSessionService
     {
-        void Add(string name, int countOfPlayers);
+        GameSession Add(string name, int countOfPlayers);
         GameSession Get(Guid id);
         List<GameSession> GetAll();
         IPagedList GetPagedList(int pageNumber, int pageSize);

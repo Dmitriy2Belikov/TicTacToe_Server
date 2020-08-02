@@ -1,14 +1,10 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-
-const GAME_SESSIONS_ID = '#gameSessions';
+const GAME_SESSIONS_ID = '#gameSessions'; // Game sessions table id
+const SERVER_HOST = "https://localhost:44331/"; // Host of server
 
 //Session Getting
 function getGameSessions() {
     $.ajax({
-        url: "api/gamesession/list",
+        url: SERVER_HOST + "api/gamesession/list",
         type: "GET",
         success: function (gameSessions) {
             $(GAME_SESSIONS_ID).empty();
@@ -17,12 +13,18 @@ function getGameSessions() {
             $(GAME_SESSIONS_ID).append(tableHeaders);
 
             for (let i = 0; i < gameSessions.length; i++) {
-                let gameSessionRaw = constructGameSessionRaw(gameSessions[i]);
-
-                $(GAME_SESSIONS_ID).append(gameSessionRaw);
+                appendGameSession(gameSessions[i]);
             }
         }
     });
+}
+
+function appendGameSession(gameSession) {
+    let gameSessionRaw = constructGameSessionRaw(gameSession);
+
+    $(GAME_SESSIONS_ID).append(gameSessionRaw);
+
+    setDeleteHandler(gameSession);
 }
 
 function constructGameSessionRaw(gameSession) {
@@ -38,19 +40,24 @@ function constructGameSessionRaw(gameSession) {
 }
 
 function constructDeleteButton(gameSession) {
-    let deleteButton = '<button onclick="deleteGameSession(' + gameSession.id + ')">Удалить</button>';
+    let deleteButton = '<button id="' + gameSession.id + '">Удалить</button>';
 
     return deleteButton;
 }
 
 function deleteGameSession(gameSessionId) {
     $.ajax({
-        url: "api/gamesession/delete/" + gameSessionId,
+        url: SERVER_HOST + "api/gamesession/delete/" + gameSessionId,
         type: "GET",
-        data: { id: gameSessionId },
         success: function () {
-            $('#' + gameSessionId).remove();
+            $('#' + gameSessionId).detach();
         }
+    });
+}
+
+function setDeleteHandler(gameSession) {
+    $(document).on('click', '#' + gameSession.id, function () {
+        deleteGameSession(gameSession.id);
     });
 }
 
@@ -62,27 +69,31 @@ function createGameSession() {
 }
 
 function sendForm() {
-    let name = $('#name').val();
-    let countOfPlayers = +$('#players').val();
+    let name = String($('#name').val());
+    let countOfPlayers = Number($('#players').val());
 
-    if (countOfPlayers > 0 & name != "") {
-        let form = {
-            Name: name,
-            CountOfPlayers: countOfPlayers
-        };
+    let form = {
+        Name: name,
+        CountOfPlayers: countOfPlayers
+    };
 
-        $.ajax({
-            url: "api/gamesession/create",
-            type: "POST",
-            data: { gameSessionViewModel: form },
-            contentType: "application/json",
-            success: function (gameSession) {
-                $('#createGameSession').select('input').each(function () {
-                    $(this).empty();
-                }).hide();
+    $.ajax({
+        type: "POST",
+        url: SERVER_HOST + "api/gamesession/create",
+        data: JSON.stringify(form),
+        contentType: "application/json;odata=verbose",
+        dataType: "json",
+        success: function (gameSession) {
+            appendGameSession(gameSession);
 
-                getGameSessions();
-            }
-        });
-    }
+            $("#createGameSession").hide();
+            $("#mainPage").show();
+        }
+    });
 }
+
+$(document).on('submit', '#createForm', function (e) {
+    e.preventDefault();
+
+    sendForm();
+});
