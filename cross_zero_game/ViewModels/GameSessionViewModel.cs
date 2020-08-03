@@ -9,5 +9,6 @@ namespace cross_zero_game.ViewModels
     {
         public string Name { get; set; }
         public int CountOfPlayers { get; set; }
+        public string CreatorName { get; set; }
     }
 }

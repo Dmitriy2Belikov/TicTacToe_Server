@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Playing Room</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+    <script src="./js/GameFieldWork.js"></script>
+</head>
+
+<body>
+    <div id="gameFieldContainer" class="text-center">
+        <table class="table text-center mr-auto ml-auto">
+            <tr>
+                <th>Создатель</th>
+                <th>Соперник</th>
+            </tr>
+            <tr id="players">
+                <td id="creator">Ожидается</td>
+                <td id="joined">Ожидается</td>
+            </tr>
+        </table>
+
+        <table id="gameField" class="table table-bordered w-50 text-center ml-auto mr-auto">
+
+        </table>
+
+        <input class="m-5" type="button" value="Сдаться" />
+        <input class="m-5" type="button" value="Выйти" />
+
+        <script>
+            var gameSessionId = window.location.pathname;
+            getGameField(gameSessionId);
+        </script>
+    </div>
+</body>
+
+</html>

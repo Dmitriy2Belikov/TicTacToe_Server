@@ -1,6 +1,7 @@
 ﻿using cross_zero_game.Models;
 using cross_zero_game.Repositories.Interfaces;
 using cross_zero_game.Services.Interfaces;
+using cross_zero_game.StateMachines;
 using PagedList;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace cross_zero_game.Services
             _gameSessionRepository = gameSessionRepository;
         }
 
-        public GameSession Add(string name, int countOfPlayers)
+        public GameSession Add(string name, GameSessionStates state, Player creator)
         {
             var gameField = new GameField();
 
@@ -32,9 +33,10 @@ namespace cross_zero_game.Services
             {
                 Id = Guid.NewGuid(),
                 Name = name,
-                CountOfPlayers = countOfPlayers,
+                CountOfPlayers = 1,
                 GameField = gameField,
-                Players = new List<Player>()
+                Players = new List<Player>() { creator },
+                State = state
             };
 
             _gameSessionRepository.Add(gameSession);

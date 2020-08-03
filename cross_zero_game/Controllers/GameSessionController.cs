@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using PagedList;
 using Newtonsoft.Json;
 using System.Net.Mime;
+using cross_zero_game.StateMachines;
+using Microsoft.AspNetCore.Mvc.Formatters;
 
 namespace cross_zero_game.Controllers
 {
@@ -30,7 +32,13 @@ namespace cross_zero_game.Controllers
         {
             if (ModelState.IsValid)
             {
-                var gameSession = _gameSessionService.Add(gameSessionViewModel.Name, gameSessionViewModel.CountOfPlayers);
+                var creator = new Player()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = gameSessionViewModel.CreatorName
+                };
+
+                var gameSession = _gameSessionService.Add(gameSessionViewModel.Name, GameSessionStates.New, creator);
 
                 return Ok(gameSession);
             }
@@ -67,6 +75,16 @@ namespace cross_zero_game.Controllers
             _gameSessionService.Remove(id);
 
             return Ok();
+        }
+
+        [HttpGet("gamefield")]
+        public IActionResult GetGameField(Guid id)
+        {
+            var gameSession = _gameSessionService.Get(id);
+
+            var gameField = gameSession.GameField;
+
+            return Ok(gameField);
         }
     }
 }

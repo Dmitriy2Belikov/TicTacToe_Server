@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using cross_zero_game.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,10 +21,20 @@ namespace cross_zero_game.Controllers
         public IActionResult Index()
         {
             var path = Path.Combine(_appDirectory, "Index.html");
-            
-            var index = GetHtmlString(path);
-            
-            return Content(index, _contentType);
+
+            var page = GetHtmlString(path);
+
+            return Content(page, _contentType);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetGameField(Guid id)
+        {
+            var path = Path.Combine(_appDirectory, "GameField.html");
+
+            var page = GetHtmlString(path);
+
+            return Content(page, _contentType);
         }
 
         private string GetHtmlString(string path)

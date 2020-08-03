@@ -8,7 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <script src="./js/SessionWork.js"></script>
 </head>
@@ -23,14 +23,14 @@
             </script>
 
             <input class="btn btn-primary border-0 shadow" type="button" value="Создать сессию"
-                   onclick="createGameSession()" />
+                onclick="createGameSession()" />
 
-            <h1 class="text-center m-2">Игровые сессии:</h1>
+            <h1 class="text-center m-2">Игровые сессии</h1>
             <table class="table w-50 ml-auto mr-auto" id="gameSessions">
             </table>
         </div>
 
-        <div id="createGameSession" class="ml-auto mr-auto w-25 col-6">
+        <div id="createGameSession" class="ml-auto mr-auto w-25">
             <script>$('#createGameSession').hide();</script>
 
             <h1 class="text-center">Создание игровой сессии</h1>
@@ -40,25 +40,23 @@
                     <input type="text" required class="form-control" id="name" placeholder="Название" />
                 </div>
                 <div class="form-group">
-                    <input type="number" required class="form-control" id="players" placeholder="Количество игроков" />
+                    <input type="text" required class="form-control" id="creatorName" placeholder="Ваше имя" />
                 </div>
                 <button type="submit" class="btn btn-primary">Создать</button>
             </form>
         </div>
 
-        <div id="gameFieldBlock">
-            <!-- <script>$('#gameFieldBlock').hide();</script> -->
+        <div id="joining">
+            <script>$('#joining').hide();</script>
 
-            <table id="gameField" class="table-bordered text-center ml-auto mr-auto">
-                <tr class="gameFieldTr" >
-                    <td class="gameFieldTd" ></td>
-                    <td class="gameFieldTd"></td>
-                </tr>
-                <tr class="gameFieldTr" >
-                    <td class="gameFieldTd" ></td>
-                    <td class="gameFieldTd" ></td>
-                </tr>
-            </table>
+            <h1 class="text-center">Присоединение</h1>
+
+            <form method="POST" id="joiningForm">
+                <div class="form-group">
+                    <input type="text" required class="form-control" id="joiningName" placeholder="Ваше имя" />
+                </div>
+                <button type="submit" class="btn btn-primary">Присоединиться</button>
+            </form>
         </div>
     </div>
 </body>
